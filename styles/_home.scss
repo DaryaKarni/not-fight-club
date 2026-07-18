@@ -1,0 +1,15 @@
+
+.home-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+  height: 100vh;
+  .button-fight{
+    padding: 1rem 3rem;
+    font-family: inherit;
+    font-size: 24px;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+}

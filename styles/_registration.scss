@@ -1,0 +1,36 @@
+
+.registration{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .reg-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    .reg-title{
+      font-size: 24px;
+      font-weight:bold;
+    }
+    .input-block{
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      input{
+        border-radius: 1rem;
+        padding: 0.5rem;
+        font-size: 16px;
+      }
+      .input-name{
+        font-size: 16px;  
+      }
+    }
+    .button-create{
+      padding: 1rem;
+      border-radius: 1rem;
+      font-family: inherit;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+}
