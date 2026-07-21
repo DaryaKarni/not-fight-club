@@ -1,6 +1,7 @@
 import { buildRegistration } from "./pages/registration.js";
 import { buildHome } from "./pages/home.js";
 import { buildProfile } from "./pages/profile.js";
+import { buildSettings } from "./pages/settings.js";
 const navButtons = document.querySelector('.nav-buttons');
 
 function handleHashChange(){//router creating preferable to practice
@@ -18,7 +19,7 @@ function handleHashChange(){//router creating preferable to practice
       buildRegistration();
       break;
     case '#/settings':
-      switchToSettings();
+      buildSettings();
       break;
     case '#/battle':
       switchToBattle();

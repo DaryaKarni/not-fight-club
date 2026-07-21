@@ -218,6 +218,43 @@
   opacity: 1;
 }
 
+.settings {
+  padding: 3rem;
+  padding-top: 9rem;
+  display: flex;
+  gap: 2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.settings .settings-wrapper {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  gap: 1rem;
+}
+.settings .settings-wrapper .player-name, .settings .settings-wrapper .name, .settings .settings-wrapper .name-input {
+  font-size: 24px;
+}
+.settings .settings-wrapper .name-input {
+  height: 3rem;
+  border-radius: 2rem;
+  margin-top: 0.2rem;
+  padding: 0.5rem 1rem;
+}
+.settings .settings-wrapper .edit-name {
+  font-family: inherit;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 1rem;
+  margin-top: 0.2rem;
+}
+
+.hidden {
+  display: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;

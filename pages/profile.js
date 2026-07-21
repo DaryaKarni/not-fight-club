@@ -9,7 +9,6 @@ export function buildProfile(){
   const main = document.querySelector('#main');
   main.className = 'profile';
   const defaultAvatar = avatars.JINX;
-  localStorage.setItem('avatar', JSON.stringify('JINX'));
   main.innerHTML = `
   <div class='profile-wrapper'>
     <div class='image-wrapper'>

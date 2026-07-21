@@ -1,0 +1,37 @@
+
+.settings{
+  padding: 3rem;
+  padding-top: 9rem;
+  display: flex;
+  gap: 2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+
+  .settings-wrapper{
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    gap: 1rem;
+    .player-name, .name, .name-input{
+      font-size: 24px;
+    }
+    .name-input{
+      height: 3rem;
+      border-radius: 2rem;
+      margin-top: 0.2rem;
+      padding: 0.5rem 1rem;
+    }
+    .edit-name{
+      font-family: inherit;
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 1rem;
+      margin-top: 0.2rem;
+    }
+  }
+}
+.hidden{
+  display: none;
+}
