@@ -1,0 +1,90 @@
+
+.battle{
+  padding-top: 9rem;
+  display: flex;
+  gap: 2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  .game-field{
+    display: flex;
+    padding: 2rem 10rem;
+    justify-content: space-between;
+    width: inherit;
+    align-items: center;
+    box-sizing: border-box;
+    .character{
+      display: flex;
+      gap: 2rem;
+      flex-direction: column;
+      align-items: center;
+      .char-name{
+        font-size: 3rem;
+      }
+      .char-image-wrapper{
+        width: 30rem;
+        height: 40rem;
+        background-color: black;
+        border-radius: 2rem;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .gameplay{
+      font-size: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      .game-panel{
+        display: flex;
+        gap: 1rem;
+        .separator{
+          width: 1px;
+          background-color: black;
+          border-radius: 1rem;
+        }
+        .zones-block{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          .radio-buttons-block{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            .radio-button-left{
+              display: flex;
+              width: 6.5rem;
+              justify-content: flex-end;
+            }
+            .radio-button-right{
+              display: flex;
+              width: 6.5rem;
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+    .button-attack{
+      font-family: inherit;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+    }
+  }
+  .log-field{
+    height: 20rem;
+    border-top: 1px solid black;
+    position: fixed;
+    width: inherit;
+    bottom: 0;
+  }
+}

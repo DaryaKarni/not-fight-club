@@ -255,6 +255,96 @@
   display: none;
 }
 
+.battle {
+  padding-top: 9rem;
+  display: flex;
+  gap: 2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+}
+.battle .game-field {
+  display: flex;
+  padding: 2rem 10rem;
+  justify-content: space-between;
+  width: inherit;
+  align-items: center;
+  box-sizing: border-box;
+}
+.battle .game-field .character {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+.battle .game-field .character .char-name {
+  font-size: 3rem;
+}
+.battle .game-field .character .char-image-wrapper {
+  width: 30rem;
+  height: 40rem;
+  background-color: black;
+  border-radius: 2rem;
+}
+.battle .game-field .character .char-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.battle .game-field .gameplay {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.battle .game-field .gameplay .game-panel {
+  display: flex;
+  gap: 1rem;
+}
+.battle .game-field .gameplay .game-panel .separator {
+  width: 1px;
+  background-color: black;
+  border-radius: 1rem;
+}
+.battle .game-field .gameplay .game-panel .zones-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-left {
+  display: flex;
+  width: 6.5rem;
+  justify-content: flex-end;
+}
+.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-right {
+  display: flex;
+  width: 6.5rem;
+  justify-content: flex-start;
+}
+.battle .game-field .button-attack {
+  font-family: inherit;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+.battle .log-field {
+  height: 20rem;
+  border-top: 1px solid black;
+  position: fixed;
+  width: inherit;
+  bottom: 0;
+}
+
 html, body {
   margin: 0;
   padding: 0;

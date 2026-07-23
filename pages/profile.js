@@ -1,10 +1,5 @@
+import { avatars } from "../components/data.js";
 
-const avatars = {
-  'JINX': './assets/jinx.jpg',
-  'VI': './assets/violet.jpg',
-  'JAMES': './assets/james.jpg',
-  'EKKO': './assets/ekko.jpg'
-};
 export function buildProfile(){
   const main = document.querySelector('#main');
   main.className = 'profile';

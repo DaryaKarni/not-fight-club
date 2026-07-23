@@ -9,4 +9,8 @@ export function buildHome(){
   `;
   const navTitle = document.querySelector('.nav-page-title');
   navTitle.textContent = 'Main';
+  const buttonFight = main.querySelector('.button-fight');
+  buttonFight.addEventListener('click', () => {
+    window.location.hash = `#/battle`;
+  })
 }
