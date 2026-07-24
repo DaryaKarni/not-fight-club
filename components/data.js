@@ -10,8 +10,12 @@ export const avatars = {
 export const enemies = [{
   name: "Silco",
   hp: 150,
+  attacks: 1,
+  defences: 1,
 },
 {
   name: "Ambessa",
   hp: 200,
+  attacks: 1,
+  defences: 3,
 }];

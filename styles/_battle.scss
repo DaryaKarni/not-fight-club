@@ -78,6 +78,10 @@
       font-size: 2rem;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
+      cursor: pointer;
+      &.disabled{
+        cursor:no-drop;
+      }
     }
   }
   .log-field{
