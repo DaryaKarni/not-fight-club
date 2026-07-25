@@ -12,10 +12,12 @@ export const enemies = [{
   hp: 150,
   attacks: 1,
   defences: 1,
+  damage: 10,
 },
 {
   name: "Ambessa",
   hp: 200,
   attacks: 1,
   defences: 3,
+  damage: 15,
 }];

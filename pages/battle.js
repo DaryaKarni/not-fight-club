@@ -33,6 +33,8 @@ export function buildBattle(){
       name: JSON.parse(localStorage.getItem('name')),
       maxHp: 150,
       currentHp: 150,
+      damage: 10,
+      attacks: 1,
       avatar: avatars[JSON.parse(localStorage.getItem('avatar'))],
     },
     enemy: {
@@ -40,13 +42,16 @@ export function buildBattle(){
       maxHp: selectedEnemy.hp,
       currentHp: selectedEnemy.hp,
       avatar: enemyAvatar,
-      defenceCount: selectedEnemy.defences,
+      attacks: selectedEnemy.attacks,
+      defences: selectedEnemy.defences,
+      damage: selectedEnemy.damage,
     },
     currentTurnChoice:{
       attackZone: null,
-      defenceZones: [],
+      heroDefences: [],
     },
     log: [],
+    newLog: [],
     isGameOver: false,
   }
  
@@ -72,23 +77,23 @@ export function buildBattle(){
             <div class='radio-buttons-block'>
               <div class='radio-button-left'>
                 <label for='head'>Head</label>
-                <input data-zone='attack' type='radio' value='head'>
+                <input data-zone='attack' type='radio' value='Head'>
               </div>
               <div class='radio-button-left'>
                 <label for='neck'>Neck</label>
-                <input data-zone='attack' type='radio' value='neck'>
+                <input data-zone='attack' type='radio' value='Neck'>
               </div>
               <div class='radio-button-left'>
                 <label for='body'>Body</label>
-                <input data-zone='attack' type='radio' value='body'>
+                <input data-zone='attack' type='radio' value='Body'>
               </div>
               <div class='radio-button-left'>
                 <label for='belly'>Belly</label>
-                <input data-zone='attack' type='radio' value='belly'>
+                <input data-zone='attack' type='radio' value='Belly'>
               </div>
               <div class='radio-button-left'>
                 <label for='legs'>Legs</label>
-                <input data-zone='attack' type='radio' value='legs'>
+                <input data-zone='attack' type='radio' value='Legs'>
               </div>
             </div>
           </div>
@@ -97,23 +102,23 @@ export function buildBattle(){
             <span class='defence-zones zones-title'>Defence Zones</span>
             <div class='radio-buttons-block'>
               <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='head'>
+                <input data-zone='defence' type='radio' value='Head'>
                 <label for='head'>Head</label>
               </div>
               <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='neck'>
+                <input data-zone='defence' type='radio' value='Neck'>
                 <label for='neck'>Neck</label>
               </div>
               <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='body'>
+                <input data-zone='defence' type='radio' value='Body'>
                 <label for='body'>Body</label>
               </div>
               <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='belly'>
+                <input data-zone='defence' type='radio' value='Belly'>
                 <label for='belly'>Belly</label>
               </div>
               <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='legs'>
+                <input data-zone='defence' type='radio' value='Legs'>
                 <label for='legs'>Legs</label>
               </div>
             </div>
@@ -123,24 +128,24 @@ export function buildBattle(){
       </div>
       
       <div class='character enemy'>
-        <span class='char-name'>${defaultState.ememy.name}</span>
+        <span class='char-name'>${defaultState.enemy.name}</span>
         <div class='char-image-wrapper'>
-          <img src='${defaultState.ememy.avatar}' alt='character image'>
+          <img src='${defaultState.enemy.avatar}' alt='character image'>
         </div>
         <div data-char='hero' class='progress-bar'></div>
         <span class='progress-num'></span>
       </div>
 
     </div>
-    <div class='log-field'></div>
+    <div id='log-field' class='log-field'></div>
   `;
 
   const savedState = localStorage.getItem('game_state');
   const state = savedState ? JSON.parse(savedState) : defaultState;
   const gameplay = main.querySelector('.gameplay');
   const attackButton = gameplay.querySelector('.button-attack');
-  let attackZones = [];
-  let defenceZones = [];
+  let heroAttacks = [];
+  let heroDefences = [];
   gameplay.addEventListener('click', (e) => {
     const radioButton = e.target.closest('input[type="radio"]');
     if(!radioButton) return;
@@ -156,20 +161,20 @@ export function buildBattle(){
     }
     if(radioButton.checked){
       if(radioButton.dataset.zone === 'attack'){
-      attackZones.push(radioButton.value);
+      heroAttacks.push(radioButton.value);
       } else {
-        defenceZones.push(radioButton.value);
+        heroDefences.push(radioButton.value);
       }
     } else{
       if(radioButton.dataset.zone === 'attack'){
-      attackZones.pop(radioButton.value);
+      heroAttacks.pop(radioButton.value);
       } else {
-        defenceZones.pop(radioButton.value);
+        heroDefences.pop(radioButton.value);
       }
     }
     
 
-    if(attackZones.length === 1 && defenceZones.length === 2){
+    if(heroAttacks.length === 1 && heroDefences.length === 2){
       attackButton.disabled = false;
       attackButton.classList.remove('disabled');
     } else{
@@ -177,30 +182,104 @@ export function buildBattle(){
       attackButton.classList.add('disabled');
     }
   });
-
+  
   const store = createStore(defaultState);
   store.subscribe(renderBattle);
   
   attackButton.addEventListener('click', () => {
+    console.log(heroAttacks, heroDefences);
     store.dispatch((currentState) => {
+      const hero = currentState.player;
+      let heroHp = hero.currentHp;
       const enemy = currentState.enemy;
-      const enemyAttacks = [zones[Math.floor(Math.random * zones.length)]];
+      let enemyHp = enemy.currentHp;
+      const enemyAttacks = [];
       const enemyDefences = [];
-      while (enemyDefences.length !== enemy.defenceCount){
-        const zone = zones[Math.floor(Math.random * zones.length)];
-        if(!enemyDefences.includes(zone)){
-          enemyDefences.push(zone);
+      while (enemyAttacks.length !== enemy.attacks){
+          const zone = zones[Math.floor(Math.random() * zones.length)];
+          if(!enemyAttacks.includes(zone)){
+            enemyAttacks.push(zone);
+          }
         }
+      while (enemyDefences.length !== enemy.defences){
+          const zone = zones[Math.floor(Math.random() * zones.length)];
+          if(!enemyDefences.includes(zone)){
+            enemyDefences.push(zone);
+          }
+        }
+      function attack(attacker, attackerAttacks, attackerDefences, opponent, opponentHp, opponentDefeces){
+
+        const attackLogs = attackerAttacks.map((attack) => {
+          let damage = attacker.damage;
+          console.log(`${attacker} attacks to ${attack}  but opponents's defences are ${opponentDefeces}`);
+          if(Math.floor(Math.random() * 15) === 14){
+            damage = damage + 10;
+            opponentHp = opponentHp - damage;
+            return `${attacker.name} attacked 
+            ${opponent.name} to ${attack} and 
+            crit ${damage} damage`.replace(/\s+/g, ' ');
+          }
+          else if(!opponentDefeces.includes(attack)){
+            opponentHp = opponentHp - damage;
+            return `${attacker.name} attacked 
+            ${opponent.name} to ${attack} and 
+            deal ${damage} damage`.replace(/\s+/g, ' ');
+          } else{
+            return `${attacker.name} attacked 
+            ${opponent.name} to ${attack} but 
+            ${opponent.name} was able to protect his ${attack}`.replace(/\s+/g, ' ');
+          }
+        });
+        return [attackLogs, opponentHp];
       }
-      
+      let heroAttackLogs = null;
+      [heroAttackLogs, enemyHp] = attack(hero, heroAttacks, heroDefences, enemy, enemyHp, enemyDefences);
+      let enemyAttackLogs = null;
+      [enemyAttackLogs, heroHp] = attack(enemy, enemyAttacks, enemyDefences, hero, heroHp, heroDefences);
+      const generalLog = currentState.log;
+      const newLog = [...heroAttackLogs, ...enemyAttackLogs];
+      generalLog.push(...heroAttackLogs, ...enemyAttackLogs);
       return {
         ...currentState,
-        //hp: 
+        player: {
+          ...currentState.player,
+          currentHp: heroHp,
+        },
+        enemy: {
+          ...currentState.enemy,
+          currentHp: enemyHp,
+        },
+        log: generalLog,
+        newLog: newLog,
+        //isGameOver: 
       }
     });
-  })
+  });
 }
 
 function renderBattle(state){
-
+  console.log(state);
+  const logField = document.getElementById('log-field');
+  state.newLog.values().forEach((log) => {
+    const spanLog = document.createElement('span');
+    spanLog.classList.add('span-log');
+    const arr = log.split(' ');
+    console.log(arr);
+    arr.forEach((word, index) => {
+      const spanWord = document.createElement('span');
+      spanWord.textContent = word + ' ';
+      spanWord.classList.add('span-word');
+      if([0,2,4].includes(index)){
+        spanWord.classList.add('blue-text');
+      } else if(arr.includes('crit') && (index === arr.length - 1
+        || index === arr.length - 2)){
+        spanWord.classList.add('pink-text');
+      } else if(arr.includes('damage') && (index === arr.length - 1
+        || index === arr.length - 2)){
+        spanWord.classList.add('bold-text');
+      }
+      spanLog.appendChild(spanWord);
+    });
+    logField.appendChild(spanLog);
+  });
 }
