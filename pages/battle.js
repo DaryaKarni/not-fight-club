@@ -27,34 +27,52 @@ function createStore(initialState){
 export function buildBattle(){
   const enemyIndex = Math.floor(Math.random() * enemies.length); 
   const selectedEnemy = enemies[enemyIndex];
-  const enemyAvatar = avatars[selectedEnemy.name.toUpperCase()];
+  if(!JSON.parse(localStorage.getItem('enemy'))) {
+    localStorage.setItem('enemy', JSON.stringify(selectedEnemy));
+  }
+  const enemy = JSON.parse(localStorage.getItem('enemy'));
+  const enemyAvatar = JSON.parse(localStorage.getItem('enemyAvatar')) ?? 
+  selectedEnemy.name.toUpperCase();
+  if(!JSON.parse(localStorage.getItem('enemyAvatar'))) {
+    localStorage.setItem('enemyAvatar', JSON.stringify(enemyAvatar));
+  }
+  if(!JSON.parse(localStorage.getItem('enemyHp'))){
+    localStorage.setItem('enemyHp', JSON.stringify(selectedEnemy.hp));
+  }
+  if(!JSON.parse(localStorage.getItem('heroHp'))){
+    localStorage.setItem('heroHp', 150);
+  }
+  let playerAvatar;
+  if(JSON.parse(localStorage.getItem('avatar'))){
+    playerAvatar = avatars[JSON.parse(localStorage.getItem('avatar'))];
+  } else{
+    localStorage.setItem('avatar', JSON.stringify('JINX'));
+    playerAvatar = avatars[JSON.parse(localStorage.getItem('avatar'))];
+  }
   const defaultState = {
     player: {
       name: JSON.parse(localStorage.getItem('name')),
       maxHp: 150,
-      currentHp: 150,
+      currentHp: JSON.parse(localStorage.getItem('heroHp')) ?? 150,
       damage: 10,
       attacks: 1,
-      avatar: avatars[JSON.parse(localStorage.getItem('avatar'))],
+      avatar: playerAvatar,
     },
     enemy: {
-      name: selectedEnemy.name,
-      maxHp: selectedEnemy.hp,
-      currentHp: selectedEnemy.hp,
-      avatar: enemyAvatar,
-      attacks: selectedEnemy.attacks,
-      defences: selectedEnemy.defences,
-      damage: selectedEnemy.damage,
+      name: enemy.name,
+      maxHp: enemy.hp,
+      currentHp: JSON.parse(localStorage.getItem('enemyHp')) ?? enemy.hp,
+      avatar: avatars[enemyAvatar],
+      attacks: enemy.attacks,
+      defences: enemy.defences,
+      damage: enemy.damage,
     },
-    currentTurnChoice:{
-      attackZone: null,
-      heroDefences: [],
-    },
-    log: [],
+    log: JSON.parse(localStorage.getItem('log')) ?? [],
     newLog: [],
     isGameOver: false,
   }
- 
+  const navTitle = document.querySelector('.nav-page-title');
+  navTitle.textContent = 'Battle';
   const main = document.querySelector('#main');
   main.className = 'battle';
   main.innerHTML = `
@@ -65,8 +83,16 @@ export function buildBattle(){
         <div class='char-image-wrapper'>
           <img src='${defaultState.player.avatar}' alt='character image'>
         </div>
-        <div data-char='hero' class='progress-bar'></div>
-        <span class='progress-num'></span>
+        <div data-char='hero' class='progress-block'>
+          <div class='progress-bar'>
+            <div class='current-progress-bar'></div>
+          </div>
+          <div class='progress-nums-block'>
+            <span class='span-currentHp'>${defaultState.player.currentHp}</span>
+            <span>/</span>
+            <span class='span-maxPp'>${defaultState.player.maxHp}</span>
+          </div>
+        </div>
       </div>
 
       <div class='gameplay'>
@@ -132,13 +158,40 @@ export function buildBattle(){
         <div class='char-image-wrapper'>
           <img src='${defaultState.enemy.avatar}' alt='character image'>
         </div>
-        <div data-char='hero' class='progress-bar'></div>
-        <span class='progress-num'></span>
+        <div data-char='enemy' class='progress-block'>
+          <div class='progress-bar'>
+            <div class='current-progress-bar'></div>
+          </div>
+          <div class='progress-nums-block'>
+            <span class='span-currentHp'>${defaultState.enemy.currentHp}</span>
+            <span>/</span>
+            <span class='span-maxPp'>${defaultState.enemy.maxHp}</span>
+          </div>
+        </div>
       </div>
 
     </div>
     <div id='log-field' class='log-field'></div>
+    <div id='modal' class='modal hidden'>
+      <p class='modal-message'></p>
+      <button class='modal-cross'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+      </button>
+    </div>
   `;
+  const modal = document.getElementById('modal');
+  const buttonCross = modal.querySelector('.modal-cross');
+  buttonCross.addEventListener('click', () => {
+    document.querySelector('.background').remove();
+    localStorage.removeItem('enemy');
+    localStorage.removeItem('enemyAvatar');
+    localStorage.removeItem('enemyHp');
+    localStorage.removeItem('heroHp');
+    localStorage.removeItem('log');
+    window.location.hash = '#/profile';
+  })
 
   const savedState = localStorage.getItem('game_state');
   const state = savedState ? JSON.parse(savedState) : defaultState;
@@ -185,6 +238,9 @@ export function buildBattle(){
   
   const store = createStore(defaultState);
   store.subscribe(renderBattle);
+
+  renderLog(state, state.log);
+  renderProgressHp(state);
   
   attackButton.addEventListener('click', () => {
     console.log(heroAttacks, heroDefences);
@@ -239,6 +295,9 @@ export function buildBattle(){
       const generalLog = currentState.log;
       const newLog = [...heroAttackLogs, ...enemyAttackLogs];
       generalLog.push(...heroAttackLogs, ...enemyAttackLogs);
+      localStorage.setItem('log', JSON.stringify(generalLog));
+      localStorage.setItem('heroHp', JSON.stringify(heroHp));
+      localStorage.setItem('enemyHp', JSON.stringify(enemyHp));
       return {
         ...currentState,
         player: {
@@ -256,11 +315,10 @@ export function buildBattle(){
     });
   });
 }
-
-function renderBattle(state){
-  console.log(state);
+function renderLog(state, someLog){
   const logField = document.getElementById('log-field');
-  state.newLog.values().forEach((log) => {
+  console.log(someLog);
+  someLog.forEach((log) => {
     const spanLog = document.createElement('span');
     spanLog.classList.add('span-log');
     const arr = log.split(' ');
@@ -283,3 +341,60 @@ function renderBattle(state){
     logField.appendChild(spanLog);
   });
 }
+function renderProgressHp(state){
+  const heroProgressBlock = document.querySelector('.progress-block[data-char="hero"]');
+  const enemyProgressBlock = document.querySelector('.progress-block[data-char="enemy"]');
+  renderHpChange(state.player, heroProgressBlock);
+  renderHpChange(state.enemy, enemyProgressBlock);
+  function renderHpChange(character, characterProgressBlock){
+    const characterProgressBar = characterProgressBlock.querySelector('.current-progress-bar');
+    const currHp = character.currentHp < 0 ? 0 : character.currentHp;
+    const maxHp = character.maxHp;
+    const percentage = (currHp / maxHp) * 100;
+    characterProgressBar.style.width = `${percentage}%`;
+
+    const spanCharacterHp = characterProgressBlock.querySelector('.span-currentHp');
+    spanCharacterHp.textContent = currHp;
+    if(currHp <= 0){
+      renderGameOver(state);
+      return;
+    }
+  }
+}
+function renderGameOver(state){
+  console.log(state, 'its prom gameover');
+    let wins = JSON.parse(localStorage.getItem('wins'));
+    let loses = JSON.parse(localStorage.getItem('loses'));
+    console.log(`herohp: ${state.player.currentHp} and enemy's: ${state.enemy.currentHp}`)
+    if(state.player.currentHp > state.enemy.currentHp){
+      wins += 1;
+      localStorage.setItem('wins', JSON.stringify(wins));
+      const winMessage = 'Congratulations on your win!!!';
+      console.log('im here');
+      renderModal(winMessage);
+    } else if(state.player.currentHp < state.enemy.currentHp){
+      loses += 1;
+      localStorage.setItem('loses', JSON.stringify(loses));
+      const loseMessage = 'You lose, unfortunatly(';
+      renderModal(loseMessage);
+    } else{
+      renderModal('DRAW!');
+    }
+    function renderModal(message){
+      console.log('rendering');
+      const main = document.getElementById('main');
+      const modal = main.querySelector('.modal');
+      modal.classList.remove('hidden');
+      const text = modal.querySelector('.modal-message');
+      text.textContent = message;
+
+      const background = document.createElement('div');
+      background.classList.add('background');
+      document.body.prepend(background);
+    }
+  }
+function renderBattle(state){
+  renderLog(state, state.newLog);
+  renderProgressHp(state);
+}
+ 
