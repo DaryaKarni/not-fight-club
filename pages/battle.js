@@ -77,108 +77,108 @@ export function buildBattle(){
   main.className = 'battle';
   main.innerHTML = `
     <div class='game-field'>
-
-      <div class='character hero'>
-        <span class='char-name'>${defaultState.player.name}</span>
-        <div class='char-image-wrapper'>
-          <img src='${defaultState.player.avatar}' alt='character image'>
-        </div>
-        <div data-char='hero' class='progress-block'>
-          <div class='progress-bar'>
-            <div class='current-progress-bar'></div>
+      <div class= 'game-wrapper'>
+        <div class='character hero'>
+          <span class='char-name'>${defaultState.player.name}</span>
+          <div class='char-image-wrapper'>
+            <img src='${defaultState.player.avatar}' alt='character image'>
           </div>
-          <div class='progress-nums-block'>
-            <span class='span-currentHp'>${defaultState.player.currentHp}</span>
-            <span>/</span>
-            <span class='span-maxPp'>${defaultState.player.maxHp}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class='gameplay'>
-        <span class='game-instruction'>Please pick 1 Attack zone and 2 Defence zones</span>
-        <div class='game-panel'>
-          <div class='attack-zones-block zones-block'>
-            <span class='attack-zones zones-title'>Attack Zones</span>
-            <div class='radio-buttons-block'>
-              <div class='radio-button-left'>
-                <label for='head'>Head</label>
-                <input data-zone='attack' type='radio' value='Head'>
-              </div>
-              <div class='radio-button-left'>
-                <label for='neck'>Neck</label>
-                <input data-zone='attack' type='radio' value='Neck'>
-              </div>
-              <div class='radio-button-left'>
-                <label for='body'>Body</label>
-                <input data-zone='attack' type='radio' value='Body'>
-              </div>
-              <div class='radio-button-left'>
-                <label for='belly'>Belly</label>
-                <input data-zone='attack' type='radio' value='Belly'>
-              </div>
-              <div class='radio-button-left'>
-                <label for='legs'>Legs</label>
-                <input data-zone='attack' type='radio' value='Legs'>
-              </div>
+          <div data-char='hero' class='progress-block'>
+            <div class='progress-bar'>
+              <div class='current-progress-bar'></div>
             </div>
-          </div>
-          <span class='separator'></span>
-          <div class='defence-zones-block zones-block'>
-            <span class='defence-zones zones-title'>Defence Zones</span>
-            <div class='radio-buttons-block'>
-              <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='Head'>
-                <label for='head'>Head</label>
-              </div>
-              <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='Neck'>
-                <label for='neck'>Neck</label>
-              </div>
-              <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='Body'>
-                <label for='body'>Body</label>
-              </div>
-              <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='Belly'>
-                <label for='belly'>Belly</label>
-              </div>
-              <div class='radio-button-right'>
-                <input data-zone='defence' type='radio' value='Legs'>
-                <label for='legs'>Legs</label>
-              </div>
+            <div class='progress-nums-block'>
+              <span class='span-currentHp'>${defaultState.player.currentHp}</span>
+              <span>/</span>
+              <span class='span-maxPp'>${defaultState.player.maxHp}</span>
             </div>
           </div>
         </div>
-        <button class='button-attack disabled' disabled>Attack!</button>
-      </div>
-      
-      <div class='character enemy'>
-        <span class='char-name'>${defaultState.enemy.name}</span>
-        <div class='char-image-wrapper'>
-          <img src='${defaultState.enemy.avatar}' alt='character image'>
-        </div>
-        <div data-char='enemy' class='progress-block'>
-          <div class='progress-bar'>
-            <div class='current-progress-bar'></div>
-          </div>
-          <div class='progress-nums-block'>
-            <span class='span-currentHp'>${defaultState.enemy.currentHp}</span>
-            <span>/</span>
-            <span class='span-maxPp'>${defaultState.enemy.maxHp}</span>
-          </div>
-        </div>
-      </div>
 
-    </div>
-    <div id='log-field' class='log-field'></div>
-    <div id='modal' class='modal hidden'>
-      <p class='modal-message'></p>
-      <button class='modal-cross'>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-        </svg>
-      </button>
+        <div class='gameplay'>
+          <span class='game-instruction'>Please pick 1 Attack zone and 2 Defence zones</span>
+          <div class='game-panel'>
+            <div class='attack-zones-block zones-block'>
+              <span class='attack-zones zones-title'>Attack Zones</span>
+              <div class='radio-buttons-block'>
+                <div class='radio-button-left'>
+                  <label for='head'>Head</label>
+                  <input data-zone='attack' type='radio' value='Head'>
+                </div>
+                <div class='radio-button-left'>
+                  <label for='neck'>Neck</label>
+                  <input data-zone='attack' type='radio' value='Neck'>
+                </div>
+                <div class='radio-button-left'>
+                  <label for='body'>Body</label>
+                  <input data-zone='attack' type='radio' value='Body'>
+                </div>
+                <div class='radio-button-left'>
+                  <label for='belly'>Belly</label>
+                  <input data-zone='attack' type='radio' value='Belly'>
+                </div>
+                <div class='radio-button-left'>
+                  <label for='legs'>Legs</label>
+                  <input data-zone='attack' type='radio' value='Legs'>
+                </div>
+              </div>
+            </div>
+            <span class='separator'></span>
+            <div class='defence-zones-block zones-block'>
+              <span class='defence-zones zones-title'>Defence Zones</span>
+              <div class='radio-buttons-block'>
+                <div class='radio-button-right'>
+                  <input data-zone='defence' type='radio' value='Head'>
+                  <label for='head'>Head</label>
+                </div>
+                <div class='radio-button-right'>
+                  <input data-zone='defence' type='radio' value='Neck'>
+                  <label for='neck'>Neck</label>
+                </div>
+                <div class='radio-button-right'>
+                  <input data-zone='defence' type='radio' value='Body'>
+                  <label for='body'>Body</label>
+                </div>
+                <div class='radio-button-right'>
+                  <input data-zone='defence' type='radio' value='Belly'>
+                  <label for='belly'>Belly</label>
+                </div>
+                <div class='radio-button-right'>
+                  <input data-zone='defence' type='radio' value='Legs'>
+                  <label for='legs'>Legs</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class='button-attack disabled' disabled>Attack!</button>
+        </div>
+        
+        <div class='character enemy'>
+          <span class='char-name'>${defaultState.enemy.name}</span>
+          <div class='char-image-wrapper'>
+            <img src='${defaultState.enemy.avatar}' alt='character image'>
+          </div>
+          <div data-char='enemy' class='progress-block'>
+            <div class='progress-bar'>
+              <div class='current-progress-bar'></div>
+            </div>
+            <div class='progress-nums-block'>
+              <span class='span-currentHp'>${defaultState.enemy.currentHp}</span>
+              <span>/</span>
+              <span class='span-maxPp'>${defaultState.enemy.maxHp}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div id='log-field' class='log-field'></div>
+        <div id='modal' class='modal hidden'>
+          <p class='modal-message'></p>
+          <button class='modal-cross'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+          </button>
+        </div>
     </div>
   `;
   const modal = document.getElementById('modal');

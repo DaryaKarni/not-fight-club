@@ -267,116 +267,125 @@
 }
 .battle .game-field {
   display: flex;
-  padding: 2rem 10rem;
+  flex: 1;
+  padding: 1rem 2rem;
   justify-content: space-between;
   width: inherit;
   align-items: center;
   box-sizing: border-box;
+  flex-direction: column;
 }
-.battle .game-field .character {
+.battle .game-field .game-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+.battle .game-field .game-wrapper .character {
   display: flex;
   gap: 2rem;
   flex-direction: column;
   align-items: center;
 }
-.battle .game-field .character .char-name {
+.battle .game-field .game-wrapper .character .char-name {
   font-size: 3rem;
 }
-.battle .game-field .character .char-image-wrapper {
-  width: 30rem;
-  height: 40rem;
+.battle .game-field .game-wrapper .character .char-image-wrapper {
+  max-width: 25rem;
+  max-height: 35rem;
+  aspect-ratio: 3/4;
   background-color: black;
   border-radius: 2rem;
 }
-.battle .game-field .character .char-image-wrapper img {
+.battle .game-field .game-wrapper .character .char-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: inherit;
 }
-.battle .game-field .character .progress-block {
+.battle .game-field .game-wrapper .character .progress-block {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
   align-items: center;
 }
-.battle .game-field .character .progress-block .progress-bar {
+.battle .game-field .game-wrapper .character .progress-block .progress-bar {
   width: 100%;
   height: 1.5rem;
   background-color: gray;
   border-radius: 0.5rem;
   justify-content: flex-start;
 }
-.battle .game-field .character .progress-block .progress-bar .current-progress-bar {
+.battle .game-field .game-wrapper .character .progress-block .progress-bar .current-progress-bar {
   border-radius: inherit;
   width: inherit;
   height: inherit;
   background-color: rgb(255, 0, 191);
 }
-.battle .game-field .character .progress-block .progress-nums-block {
+.battle .game-field .game-wrapper .character .progress-block .progress-nums-block {
   display: flex;
   gap: 0.3rem;
   font-size: large;
 }
-.battle .game-field .gameplay {
+.battle .game-field .game-wrapper .gameplay {
   font-size: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
 }
-.battle .game-field .gameplay .game-panel {
+.battle .game-field .game-wrapper .gameplay .game-panel {
   display: flex;
   gap: 1rem;
 }
-.battle .game-field .gameplay .game-panel .separator {
+.battle .game-field .game-wrapper .gameplay .game-panel .separator {
   width: 1px;
   background-color: black;
   border-radius: 1rem;
 }
-.battle .game-field .gameplay .game-panel .zones-block {
+.battle .game-field .game-wrapper .gameplay .game-panel .zones-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
-.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block {
+.battle .game-field .game-wrapper .gameplay .game-panel .zones-block .radio-buttons-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
-.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-left {
+.battle .game-field .game-wrapper .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-left {
   display: flex;
   width: 6.5rem;
   justify-content: flex-end;
 }
-.battle .game-field .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-right {
+.battle .game-field .game-wrapper .gameplay .game-panel .zones-block .radio-buttons-block .radio-button-right {
   display: flex;
   width: 6.5rem;
   justify-content: flex-start;
 }
-.battle .game-field .button-attack {
+.battle .game-field .game-wrapper .button-attack {
   font-family: inherit;
   font-size: 2rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
 }
-.battle .game-field .button-attack.disabled {
+.battle .game-field .game-wrapper .button-attack.disabled {
   cursor: no-drop;
 }
-.battle .log-field {
+.battle .game-field .log-field {
+  flex-shrink: 0;
   height: 14rem;
   overflow-y: scroll;
   border-top: 1px solid black;
-  position: fixed;
-  width: inherit;
-  bottom: 0;
+  width: 100vw;
   padding: 2rem 5rem;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .span-log {
