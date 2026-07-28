@@ -1,0 +1,193 @@
+
+.battle{
+  padding-top: 9rem;
+  display: flex;
+  gap: 2rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  .game-field{
+    display: flex;
+    flex: 1;
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    width: inherit;
+    align-items: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    .game-wrapper{
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: center;
+      .character{
+      display: flex;
+      gap: 2rem;
+      flex-direction: column;
+      align-items: center;
+      .char-name{
+        font-size: 3rem;
+      }
+      .char-image-wrapper{
+        max-width: 25rem;
+        max-height: 35rem;
+        aspect-ratio: 3 / 4;
+        background-color: black;
+        border-radius: 2rem;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: inherit;
+        }
+      }
+      .progress-block{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        align-items: center;
+        .progress-bar{
+          width: 100%;
+          height: 1.5rem;
+          background-color: gray;
+          border-radius: 0.5rem;
+          justify-content: flex-start;
+          .current-progress-bar{
+            border-radius: inherit;
+            width: inherit;
+            height: inherit;
+            background-color: rgb(255, 0, 191);
+          }
+        }
+        .progress-nums-block{
+          display: flex;
+          gap: 0.3rem;
+          font-size: large;
+        }
+      }
+    }
+    .gameplay{
+      font-size: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      .game-panel{
+        display: flex;
+        gap: 1rem;
+        .separator{
+          width: 1px;
+          background-color: black;
+          border-radius: 1rem;
+        }
+        .zones-block{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          .radio-buttons-block{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            .radio-button-left{
+              display: flex;
+              width: 6.5rem;
+              justify-content: flex-end;
+            }
+            .radio-button-right{
+              display: flex;
+              width: 6.5rem;
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+    .button-attack{
+      font-family: inherit;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      &.disabled{
+        cursor:no-drop;
+      }
+    }
+    }
+     .log-field{
+    flex-shrink: 0;
+    height: 14rem;
+    overflow-y: scroll;
+    border-top: 1px solid black;
+    width: 100vw;
+    padding: 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  }
+ 
+}
+.span-log{
+  display: flex;
+  gap: 1rem;
+}
+.span-word{
+  font-size: 20px;
+}
+.blue-text{
+  color: blue;
+}
+.pink-text{
+  color: rgb(255, 0, 191);
+  font-weight: 700;
+}
+.bold-text{
+  font-weight: 700;
+}
+
+.modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  height: 31rem;
+  border-radius: 2rem;
+  background-color: gray;
+  font-family: inherit;
+  font-size: 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  z-index: 2;
+  &.hidden{
+    display: none;
+  }
+  .modal-cross{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    padding: 0.3rem;
+    background-color: rgb(255, 0, 191);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(30%, -30%);
+    cursor: pointer;
+  }
+}
+
+.background{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, 0.5);
+  position: absolute;
+  z-index: 1;
+}
